@@ -4,7 +4,7 @@ import HomePage from './common/HomePage';
 import Login from './common/Login';
 import About from './common/About';
 import Survey from './survey/Survey';
-import SurveyDashboard from './survey/SurveyDashboard'; // Corrected import path for SurveyDashboard
+import SurveyDashboard from './survey/SurveyDashboard';
 
 function App() {
   return (
@@ -12,11 +12,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Survey" element={<Survey />} />
-        <p>Check to see if this is working.</p>
-        <Route path="/SurveyDashboard" element={<SurveyDashboard />} />
-        // Include other routes as necessary
+        <Route path="/about" element={<About />} />
+        <Route path="/survey" element={<Survey />} />
+        <Route path="/surveydashboard" element={<SurveyDashboard />} />
+        {/* Include other routes as necessary */}
       </Routes>
     </BrowserRouter>
   );
