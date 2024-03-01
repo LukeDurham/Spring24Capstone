@@ -12,6 +12,7 @@ import DisplaySurveyResults from './survey/alterSurveys/DisplaySurveyResults';
 import EmailTemplate from './survey/alterSurveys/EmailTemplate';
 import SurveyTypes from './survey/alterSurveys/SurveyTypes';
 import CreateUser from './features/user/CreateUser';
+import AddQuestionType from './survey/alterSurveys/AddQuestionType';
 
 function App() {
   const [backendData, setBackendData] = useState(null);
@@ -46,6 +47,7 @@ function App() {
         <Route path="/surveydashboard" element={<SurveyDashboard />} />
         <Route path="/add-survey-questions" element={<AddSurveyQuestions />} />
         <Route path="/create-survey" element={<CreateSurvey />} />
+        <Route path="/add-question-type" element={<AddQuestionType />} />
         <Route path="/delete-question-from-survey" element={<DeleteQuestionFromSurvey />} />
         <Route path="/display-survey-results" element={<DisplaySurveyResults />} />
         <Route path="/email-template" element={<EmailTemplate />} />

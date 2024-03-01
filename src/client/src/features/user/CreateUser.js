@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 function CreateUser() {
   const [user, setUser] = useState({
     username: '',
-    password: '',
     email: '',
   });
 
@@ -28,7 +27,7 @@ function CreateUser() {
       if (response.ok) {
         const newUser = await response.json();
         alert(`User created successfully: ${newUser.username}`);
-        setUser({ username: '', password: '', email: '' });
+        setUser({ username: '', email: '' }); // Reset username and email
       } else {
         alert('Failed to create user');
       }
@@ -49,17 +48,6 @@ function CreateUser() {
             id="username"
             name="username"
             value={user.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={user.password}
             onChange={handleChange}
             required
           />

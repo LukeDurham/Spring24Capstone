@@ -39,7 +39,7 @@ CREATE TABLE "surveys" (
 );
 
 CREATE TABLE "users" (
-  "id" integer PRIMARY KEY,
+  "id" integer PRIMARY KEY, --allow for users to be serial and autoincrement upon creation to fix issue of nullable field
   "username" varchar,
   "email" varchar,
   "created_at" timestamp,
@@ -108,7 +108,7 @@ CREATE TABLE "organizations" (
 );
 
 CREATE TABLE "projects" (
-  "id" integer PRIMARY KEY,
+  "id" integer PRIMARY KEY
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,
@@ -192,3 +192,7 @@ ALTER TABLE "questions" ADD FOREIGN KEY ("question_type_id") REFERENCES "questio
 ALTER TABLE "responses" ADD FOREIGN KEY ("question_id") REFERENCES "questions" ("id");
 
 ALTER TABLE "responses" ADD FOREIGN KEY ("survey_id") REFERENCES "surveys" ("id");
+
+
+
+
