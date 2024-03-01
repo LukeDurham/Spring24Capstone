@@ -11,25 +11,36 @@ import DeleteQuestionFromSurvey from './survey/alterSurveys/DeleteQuestionFromSu
 import DisplaySurveyResults from './survey/alterSurveys/DisplaySurveyResults';
 import EmailTemplate from './survey/alterSurveys/EmailTemplate';
 import SurveyTypes from './survey/alterSurveys/SurveyTypes';
+import CreateUser from './features/user/CreateUser';
 
 function App() {
-  const [backendData, setBackendData] = useState([{}]);
+  const [backendData, setBackendData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api").then(
-      response => response.json()
-    ).then(
-      data => {
+    fetch("/api")
+      .then(response => response.json())
+      .then(data => {
         setBackendData(data);
-      }
-    );
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/createuser" element={<CreateUser />} />
         <Route path="/about" element={<About />} />
         <Route path="/survey" element={<Survey />} />
         <Route path="/surveydashboard" element={<SurveyDashboard />} />

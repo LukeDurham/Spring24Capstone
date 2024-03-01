@@ -41,7 +41,7 @@ CREATE TABLE "surveys" (
 CREATE TABLE "users" (
   "id" integer PRIMARY KEY,
   "username" varchar,
-  "email" varcahr,
+  "email" varchar,
   "created_at" timestamp,
   "created_by" integer,
   "updated_at" timestamp,

@@ -3,7 +3,27 @@ const { Pool } = require('pg');
 const fs = require('fs');
 
 // Initialize a new pool using environment variables
-const pool = new Pool();
+// Explicitly parse and use environment variables for the Pool configuration
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: String(process.env.DB_PASSWORD), // Ensure this is treated as a string
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432, // Parse port as integer
+});
+
+module.exports = pool;
+// const testDatabaseConnection = async () => {
+//   try {
+//     const res = await pool.query('SELECT NOW()');
+//     console.log('Connection test successful:', res.rows);
+//     pool.end(); // Close the pool after testing the connection
+//   } catch (err) {
+//     console.error('Database connection test failed:', err);
+//     pool.end(); // Ensure the pool is closed even if there's an error
+//   }
+// };
+
 
 // Function to read the SQL file and execute its commands
 const setupDatabase = async () => {
@@ -31,4 +51,7 @@ const setupDatabase = async () => {
 };
 
 // Execute the setup function
+// testDatabaseConnection();
 setupDatabase();
+
+

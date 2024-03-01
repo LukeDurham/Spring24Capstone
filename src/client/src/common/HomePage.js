@@ -9,6 +9,9 @@ function HomePage() {
   const goToLogin = () => {
     navigate('/login'); // Programmatically navigate to /login route
   };
+  const goToCreateUser = () => {
+    navigate('/createuser'); // Programmatically navigate to /login route
+  };
 
   return (
     <div className="home-page">
@@ -17,6 +20,7 @@ function HomePage() {
       <p>Your go-to solution for insightful analytics and data visualization.</p>
       {/* Button that when clicked, navigates to the login page */}
       <button onClick={goToLogin} className="login-button">Login</button>
+      <button onClick={goToCreateUser} className="login-button">createUser</button>
     </div>
   );
 }
