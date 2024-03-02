@@ -14,6 +14,7 @@ const SurveyDashboard = () => {
                 {/* <button onClick={() => window.location.href = '/add-survey-questions'}>Add Survey questions</button> */}
                 {/* <button onClick={() => window.location.href = '/delete-question-from-survey'}>Delete Survey Questions</button> */}
                 <button onClick={() => window.location.href = '/display-survey-results'}>Survey Results</button>
+                <button onClick={() => window.location.href = '/add-survey-template'}>Create Survey Template</button>
                 <button onClick={() => window.location.href = '/email-template'}>Email Template</button>
                 <button onClick={() => window.location.href = '/survey-types'}>Survey Types</button>
                 

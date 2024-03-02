@@ -6,10 +6,53 @@ const pool = require('./dbSetup');
 
 const app = express();
 
+// Function to generate a random integer ID
+function generateRandomInteger() {
+    // Generate a random number between 1 and 1000000 (adjust the range as needed)
+    return Math.floor(Math.random() * 1000000) + 1;
+}
+
+
 app.use(bodyParser.json());
 
 app.get("/api", (req, res) => {
     res.json({ "users": ["Admin", "Surveyor", "Respondent"] });
+});
+
+
+
+//get user roles
+app.get("/api/roles", async (req, res) => {
+    try {
+        // Query the database to get role IDs and names
+        const queryResult = await pool.query('SELECT id, name FROM roles');
+
+        // Send the roles with their IDs and names as JSON response
+        res.json({ roles: queryResult.rows });
+    } catch (error) {
+        console.error('Error fetching roles:', error);
+        res.status(500).json({ message: 'Failed to fetch roles' });
+    }
+});
+
+
+app.post("/api/roles", async (req, res) => {
+    const { name } = req.body;
+    try {
+        // Generate a random integer ID for the role
+        const roleId = generateRandomInteger();
+
+        // Insert the role into the database
+        const result = await pool.query(
+            "INSERT INTO roles (id, name, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING *;",
+            [roleId, name]
+        );
+
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('Error creating role:', error);
+        res.status(500).json({ message: 'Failed to create role' });
+    }
 });
 
 
@@ -47,11 +90,7 @@ app.post("/api/question_types", async (req, res) => {
     }
 });
 
-// Function to generate a random integer ID
-function generateRandomInteger() {
-    // Generate a random number between 1 and 1000000 (adjust the range as needed)
-    return Math.floor(Math.random() * 1000000) + 1;
-}
+
 
 //endpoint for creating a question
 app.post("/api/questions", async (req, res) => {
@@ -77,6 +116,8 @@ app.post("/api/questions", async (req, res) => {
         res.status(500).json({ message: 'Failed to create question' });
     }
 });
+
+
 
 
 
@@ -111,6 +152,22 @@ app.post("/api/users", async (req, res) => {
         res.status(500).json({ message: 'Failed to create user' });
     }
 });
+
+
+//Get all user emails and IDs
+app.get("/api/users", async (req, res) => {
+    try {
+        // Query the database to get all user emails and their IDs
+        const queryResult = await pool.query('SELECT id, email FROM users');
+
+        // Send the query result as JSON response
+        res.json(queryResult.rows);
+    } catch (error) {
+        console.error('Error fetching user emails and IDs:', error);
+        res.status(500).json({ message: 'Failed to fetch user emails and IDs' });
+    }
+});
+
 
 
 // //endpoint for creating a survey
@@ -149,6 +206,54 @@ app.post("/api/questions", async (req, res) => {
     }
 });
 
+
+//api call for assign-user-role
+app.post("/api/assign_role", async (req, res) => {
+    const { userId, roleId } = req.body; // Correctly use userId and roleId
+
+    try {
+        await pool.query('BEGIN');
+
+        // Generate a random ID for user_roles entry. Consider using a sequence or UUID in production for uniqueness.
+        const randomId = Math.floor(Math.random() * 1000000);
+
+        // Insert the new record with the provided userId and roleId
+        await pool.query(
+            "INSERT INTO user_roles (id, user_id, role_id) VALUES ($1, $2, $3)",
+            [randomId, userId, roleId]
+        );
+
+        await pool.query('COMMIT');
+        res.status(201).json({ message: 'Role assigned successfully' });
+    } catch (error) {
+        await pool.query('ROLLBACK');
+        console.error('Error assigning role:', error);
+        res.status(500).json({ message: 'Failed to assign role' });
+    }
+});
+
+//create Survey Template
+
+app.post("/api/survey_templates", async (req, res) => {
+    const { name } = req.body;
+
+    try {
+        // Generate a random ID for the survey template
+        // Consider using a more reliable method like UUIDs for production
+        const id = Math.floor(Math.random() * 1000000);
+
+        // Insert the survey template into the database
+        await pool.query(
+            "INSERT INTO survey_templates (id, name) VALUES ($1, $2)",
+            [id, name]
+        );
+
+        res.status(201).json({ message: 'Survey template created successfully', id });
+    } catch (error) {
+        console.error('Error creating survey template:', error);
+        res.status(500).json({ message: 'Failed to create survey template' });
+    }
+});
 
 
 

@@ -13,6 +13,9 @@ import EmailTemplate from './survey/alterSurveys/EmailTemplate';
 import SurveyTypes from './survey/alterSurveys/SurveyTypes';
 import CreateUser from './features/user/CreateUser';
 import AddQuestionType from './survey/alterSurveys/AddQuestionType';
+import AddSurveyTemplate from './survey/alterSurveys/SurveyTemplate/AddSurveyTemplate';
+import CreateRole from './features/user/CreateRole';
+import AssignUserRole from './features/adminAssignments/AssignUserRole';
 
 function App() {
   const [backendData, setBackendData] = useState(null);
@@ -52,6 +55,9 @@ function App() {
         <Route path="/display-survey-results" element={<DisplaySurveyResults />} />
         <Route path="/email-template" element={<EmailTemplate />} />
         <Route path="/survey-types" element={<SurveyTypes />} />
+        <Route path="/createrole" element={<CreateRole />} />
+        <Route path="/assign-user-role" element={<AssignUserRole />} />
+        <Route path="/add-survey-template" element={<AddSurveyTemplate />} />
       </Routes>
     </BrowserRouter>
   );
