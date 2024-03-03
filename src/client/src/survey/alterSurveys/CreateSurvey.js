@@ -1,4 +1,3 @@
-// CreateSurvey.js
 import React, { useState } from 'react';
 
 const CreateSurvey = () => {
@@ -19,9 +18,28 @@ const CreateSurvey = () => {
         setQuestion(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle submission logic here
+        try {
+            const response = await fetch('/api/surveys', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question, options }),
+            });
+            if (response.ok) {
+                const newSurvey = await response.json();
+                console.log('Survey created successfully:', newSurvey);
+                // Reset form fields if needed
+                setQuestion('');
+                setOptions(['', '']);
+            } else {
+                console.error('Failed to create survey');
+            }
+        } catch (error) {
+            console.error('Error creating survey:', error);
+        }
     };
 
     return (
