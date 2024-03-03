@@ -15,7 +15,11 @@ import CreateUser from './features/user/CreateUser';
 import AddQuestionType from './survey/alterSurveys/AddQuestionType';
 import AddSurveyTemplate from './survey/alterSurveys/SurveyTemplate/AddSurveyTemplate';
 import CreateRole from './features/user/CreateRole';
-import AssignUserRole from './features/adminAssignments/AssignUserRole';
+import AssignUserRole from './features/Admin/AssignUserRole';
+import Permissions from './features/Admin/Permissions';
+import Dashboard from './common/Dashboard';
+import AdminDashboard from './features/Admin/AdminDashboard';
+import SurveyorDashboard from './features/Surveyor/SurveyorDashboard';
 
 function App() {
   const [backendData, setBackendData] = useState(null);
@@ -42,6 +46,22 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* regular login dashboard for respondents */}
+        <Route path="/dashboard" element={<Dashboard />} />
+
+
+
+        {/* Admin routes */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/assign-user-role" element={<AssignUserRole />} />
+        <Route path="/admin/user-permissions" element={<Permissions />} />
+
+
+
+        {/* Surveyor routes */}
+        <Route path="/surveyor/dashboard" element={<SurveyorDashboard />} />
+
+
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createuser" element={<CreateUser />} />
@@ -56,7 +76,6 @@ function App() {
         <Route path="/email-template" element={<EmailTemplate />} />
         <Route path="/survey-types" element={<SurveyTypes />} />
         <Route path="/createrole" element={<CreateRole />} />
-        <Route path="/assign-user-role" element={<AssignUserRole />} />
         <Route path="/add-survey-template" element={<AddSurveyTemplate />} />
       </Routes>
     </BrowserRouter>

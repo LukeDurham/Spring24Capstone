@@ -168,29 +168,6 @@ app.get("/api/users", async (req, res) => {
     }
 });
 
-
-
-// //endpoint for creating a survey
-// app.post("/api/surveys", async (req, res) => {
-//     const { question, options } = req.body;
-
-//     try {
-//         // Insert the new survey into the database
-//         const result = await pool.query(
-//             "INSERT INTO surveys (question, options, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING *;",
-//             [question, options]
-//         );
-//         res.status(201).json(result.rows[0]);
-//     } catch (error) {
-//         console.error('Error creating survey:', error);
-//         res.status(500).json({ message: 'Failed to create survey' });
-//     }
-// });
-
-
-
-
-
 // Endpoint for creating a new question
 app.post("/api/questions", async (req, res) => {
     const { question_type_id, question, created_at, updated_at } = req.body;
@@ -254,6 +231,59 @@ app.post("/api/survey_templates", async (req, res) => {
         res.status(500).json({ message: 'Failed to create survey template' });
     }
 });
+
+
+//login api endpoint 
+app.post("/api/login", async (req, res) => {
+    const { username, email } = req.body;
+
+    try {
+        const userRes = await pool.query(
+            'SELECT id FROM users WHERE username = $1 AND email = $2',
+            [username.trim(), email.trim()]
+        );
+
+        if (userRes.rows.length === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const user = userRes.rows[0];
+
+        const userRolesRes = await pool.query(
+            'SELECT role_id FROM user_roles WHERE user_id = $1',
+            [user.id]
+        );
+
+        if (userRolesRes.rows.length === 0) {
+            return res.status(404).json({ message: 'No roles found for user' });
+        }
+
+        let userRole = null; // Keep track of the user's role
+        for (const userRoleRow of userRolesRes.rows) {
+            const rolesRes = await pool.query(
+                'SELECT name FROM roles WHERE id = $1',
+                [userRoleRow.role_id]
+            );
+
+            if (rolesRes.rows.length > 0) {
+                const roleName = rolesRes.rows[0].name;
+                if (roleName === 'Admin' || roleName === 'Surveyor') {
+                    userRole = roleName; // Set role to Admin or Surveyor
+                    break; // Stop once a matching role is found
+                }
+            }
+        }
+
+        res.json({ role: userRole }); // Respond with the user's role
+
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Login failed due to server error' });
+    }
+});
+
+
+
 
 
 
