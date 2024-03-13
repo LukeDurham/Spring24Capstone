@@ -1,4 +1,5 @@
 import React from "react";
+import '../../global.css'
 import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
@@ -22,7 +23,7 @@ const AdminDashboard = () => {
     };
 
     return (
-        <div> {/* Wrap the buttons in a div */}
+        <div className="wrapper"> {/* Wrap the buttons in a div */}
             <h1>Admin Dashboard</h1>
             <button onClick={goToCreateUser} className="login-button">Create User</button>
             <button onClick={goToCreateRole} className="login-button">Create Role</button>

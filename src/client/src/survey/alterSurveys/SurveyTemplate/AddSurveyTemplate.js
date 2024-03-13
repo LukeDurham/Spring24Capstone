@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../../global.css'
 
 const AddSurveyTemplate = () => {
     const [templateName, setTemplateName] = useState('');
@@ -42,14 +43,14 @@ const AddSurveyTemplate = () => {
     };
 
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Add Survey Template</h2>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='options'>
                     <label>Template Name:</label>
                     <input type="text" value={templateName} onChange={handleTemplateNameChange} required />
                 </div>
-                <div>
+                <div className='options'>
                     <label>Description:</label>
                     <textarea value={description} onChange={handleDescriptionChange} required />
                 </div>

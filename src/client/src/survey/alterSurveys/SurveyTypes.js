@@ -1,5 +1,6 @@
 // SurveyTypes.js
 import React, { useState, useEffect } from 'react';
+import '../../global.css'
 
 const SurveyTypes = () => {
     const [surveyTypes, setSurveyTypes] = useState([]);
@@ -31,8 +32,9 @@ const SurveyTypes = () => {
     };
 
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Survey Types</h2>
+            
             <select value={selectedSurveyType} onChange={handleSurveyTypeChange}>
                 <option value="">Select Survey Type</option>
                 {surveyTypes.map((type) => (

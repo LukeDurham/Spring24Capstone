@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../global.css'
 
 const CreateRole = () => {
     const [roleName, setRoleName] = useState('');
@@ -33,10 +34,10 @@ const CreateRole = () => {
     };
 
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Create Role</h2>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='input-sq-box'>
                     <label>Role Name:</label>
                     <input type="text" value={roleName} onChange={handleRoleNameChange} required />
                 </div>

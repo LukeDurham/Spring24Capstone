@@ -168,9 +168,9 @@ app.get("/api/users", async (req, res) => {
     }
 });
 
-// Endpoint for creating a new question
 app.post("/api/questions", async (req, res) => {
     const { question_type_id, question, created_at, updated_at } = req.body;
+
     try {
         const result = await pool.query(
             "INSERT INTO questions (question_type_id, question, created_at, updated_at) VALUES ($1, $2, $3, $4) RETURNING *;",
@@ -232,6 +232,39 @@ app.post("/api/survey_templates", async (req, res) => {
     }
 });
 
+// Endpoint to fetch all survey templates
+app.get("/api/survey_templates", async (req, res) => {
+    try {
+        // Query the database to get all survey templates
+        const queryResult = await pool.query('SELECT * FROM survey_templates');
+
+        // Send the survey templates as JSON response
+        res.json({ survey_templates: queryResult.rows });
+    } catch (error) {
+        console.error('Error fetching survey templates:', error);
+        res.status(500).json({ message: 'Failed to fetch survey templates' });
+    }
+});
+
+
+// Endpoint for creating a survey question
+app.post("/api/survey_questions", async (req, res) => {
+    const { survey_template_id, question_id, description } = req.body;
+
+    try {
+        // Insert the survey question into the database
+        const result = await pool.query(
+            "INSERT INTO survey_template_questions (survey_template_id, question_id, description, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *;",
+            [survey_template_id, question_id, description]
+        );
+
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('Error creating survey question:', error);
+        res.status(500).json({ message: 'Failed to create survey question' });
+    }
+});
+
 
 //login api endpoint 
 app.post("/api/login", async (req, res) => {
@@ -282,6 +315,93 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
+
+// Endpoint for creating a survey
+app.post("/api/surveys", async (req, res) => {
+    const { survey_template_id, surveyor_id, organization_id, project_id, surveyor_role_id } = req.body;
+
+    try {
+        // Find the maximum ID from the surveys table
+        const maxIdResult = await pool.query('SELECT MAX(id) FROM surveys');
+        const maxId = maxIdResult.rows[0].max || 0;
+        const newId = maxId + 1;
+
+        // Insert the survey into the database with the new ID
+        await pool.query(
+            "INSERT INTO surveys (id, survey_template_id, surveyor_id, organization_id, project_id, surveyor_role_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())",
+            [newId, survey_template_id, surveyor_id, organization_id, project_id, surveyor_role_id]
+        );
+
+        res.status(201).json({ message: 'Survey created successfully', id: newId });
+    } catch (error) {
+        console.error('Error creating survey:', error);
+        res.status(500).json({ message: 'Failed to create survey' });
+    }
+});
+
+
+// Create Survey Template
+app.post("/api/survey_templates", async (req, res) => {
+    const { name } = req.body;
+
+    try {
+        // Generate a random ID for the survey template
+        const id = generateRandomInteger();
+
+        // Insert the survey template into the database
+        await pool.query(
+            "INSERT INTO survey_templates (id, name, created_at, updated_at) VALUES ($1, $2, NOW(), NOW())",
+            [id, name]
+        );
+
+        res.status(201).json({ message: 'Survey template created successfully', id });
+    } catch (error) {
+        console.error('Error creating survey template:', error);
+        res.status(500).json({ message: 'Failed to create survey template' });
+    }
+});
+
+// Get all Question Types
+app.get("/api/question_types", async (req, res) => {
+    try {
+        // Query the database to get all question types
+        const queryResult = await pool.query('SELECT * FROM question_types');
+
+        // Send the query result as JSON response
+        res.json(queryResult.rows);
+    } catch (error) {
+        console.error('Error fetching question types:', error);
+        res.status(500).json({ message: 'Failed to fetch question types' });
+    }
+});
+
+// Get all Organizations
+app.get("/api/organizations", async (req, res) => {
+    try {
+        // Query the database to get all organizations
+        const queryResult = await pool.query('SELECT * FROM organizations');
+
+        // Send the query result as JSON response
+        res.json(queryResult.rows);
+    } catch (error) {
+        console.error('Error fetching organizations:', error);
+        res.status(500).json({ message: 'Failed to fetch organizations' });
+    }
+});
+
+// Get all Projects
+app.get("/api/projects", async (req, res) => {
+    try {
+        // Query the database to get all projects
+        const queryResult = await pool.query('SELECT * FROM projects');
+
+        // Send the query result as JSON response
+        res.json(queryResult.rows);
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        res.status(500).json({ message: 'Failed to fetch projects' });
+    }
+});
 
 
 

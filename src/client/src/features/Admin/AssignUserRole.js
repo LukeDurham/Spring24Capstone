@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import '../../global.css'
 const AssignUserRole = () => {
     const [roles, setRoles] = useState([]);
     const [users, setUsers] = useState([]);
@@ -70,30 +70,31 @@ const AssignUserRole = () => {
         }
     };
     return (
-        <div>
-            <h2>Assign User Role</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>User Email:</label>
-                    <select value={selectedUserId} onChange={handleUserChange} required>
-                        <option value="">Select User Email</option>
-                        {users.map((user) => (
-                            <option key={user.id} value={user.id}>{user.email}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label>Role:</label>
-                    <select value={selectedRole} onChange={handleRoleChange} required>
-                        <option value="">Select Role</option>
-                        {roles.map((role) => (
-                            <option key={role.id} value={role.id}>{role.name}</option> // Display name, but value is the ID
-                        ))}
-                    </select>
-                </div>
-                <button type="submit">Assign Role</button>
-            </form>
+        <div className='wrapper'>
+    <h2>Assign User Role</h2>
+    <form onSubmit={handleSubmit} className="custom-form">
+        <div className='custom-dropdown custom-dropdown-user'>
+            <label>User Email:</label>
+            <select value={selectedUserId} onChange={handleUserChange} required>
+                <option value="">Select User Email</option>
+                {users.map((user) => (
+                    <option key={user.id} value={user.id}>{user.email}</option>
+                ))}
+            </select>
         </div>
+        <div className='custom-dropdown custom-dropdown-role'>
+            <label>Role:</label>
+            <select value={selectedRole} onChange={handleRoleChange} required>
+                <option value="">Select Role</option>
+                {roles.map((role) => (
+                    <option key={role.id} value={role.id}>{role.name}</option>
+                ))}
+            </select>
+        </div>
+        <button type="submit">Assign Role</button>
+    </form>
+</div>
+
     );
 };
 

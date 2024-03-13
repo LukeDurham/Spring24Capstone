@@ -1,5 +1,6 @@
 // EmailTemplates.js
 import React, { useState } from 'react';
+import '../../global.css'
 
 const EmailTemplates = () => {
     const [template, setTemplate] = useState('');
@@ -17,10 +18,10 @@ const EmailTemplates = () => {
     };
 
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Email Templates</h2>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='options'>
                     <label>Email Template:</label>
                     <textarea value={template} onChange={handleTemplateChange} required />
                 </div>

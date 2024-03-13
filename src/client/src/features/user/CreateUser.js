@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../global.css'
 
 function CreateUser() {
   const [user, setUser] = useState({
@@ -38,10 +39,10 @@ function CreateUser() {
   };
 
   return (
-    <div>
+    <div className='wrapper'>
       <h2>Create User</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='input-sq-box'>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -52,7 +53,7 @@ function CreateUser() {
             required
           />
         </div>
-        <div>
+        <div className='input-sq-box'> 
           <label htmlFor="email">Email:</label>
           <input
             type="email"

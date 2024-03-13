@@ -108,7 +108,7 @@ CREATE TABLE "organizations" (
 );
 
 CREATE TABLE "projects" (
-  "id" integer PRIMARY KEY
+  "id" integer PRIMARY KEY,
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,

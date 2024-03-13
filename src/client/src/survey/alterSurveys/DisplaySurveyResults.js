@@ -1,5 +1,6 @@
 // SurveyResults.js
 import React, { useState } from 'react';
+import '../../global.css'
 
 const SurveyResults = () => {
     const [surveyId, setSurveyId] = useState('');
@@ -17,7 +18,7 @@ const SurveyResults = () => {
     };
 
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Survey Results</h2>
             <form onSubmit={handleSubmit}>
                 <div>

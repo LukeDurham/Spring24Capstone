@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../../global.css'
 
 const AssignUserRole = () => {
     const [roles, setRoles] = useState([]);
@@ -70,10 +71,10 @@ const AssignUserRole = () => {
         }
     };
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Assign User Role</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form onSubmit={handleSubmit} className='custom-form'>
+                <div className='custom-dropdown custom-dropdown-user'>
                     <label>User Email:</label>
                     <select value={selectedUserId} onChange={handleUserChange} required>
                         <option value="">Select User Email</option>
@@ -82,7 +83,7 @@ const AssignUserRole = () => {
                         ))}
                     </select>
                 </div>
-                <div>
+                <div className='custom-dropdown custom-dropdown-user'>
                     <label>Role:</label>
                     <select value={selectedRole} onChange={handleRoleChange} required>
                         <option value="">Select Role</option>
