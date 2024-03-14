@@ -10,6 +10,10 @@ function HomePage() {
     navigate('/login'); // Programmatically navigate to /login route
   };
 
+  const goToRespondentDash = () => {
+    navigate('/respondentDash'); // Programmatically navigate to /login route
+  };
+
   return (
     <div className="home-page">
       <img src={logo} alt="Insight Pro Logo" className="logo" />
@@ -17,6 +21,7 @@ function HomePage() {
       <p>Your go-to solution for insightful analytics and data visualization.</p>
       {/* Button that when clicked, navigates to the login page */}
       <button onClick={goToLogin} className="login-button">Login</button>
+      <button onClick={goToRespondentDash} className="login-button">Respondent Dash</button>
     </div>
   );
 }

@@ -20,6 +20,7 @@ import Permissions from './features/Admin/Permissions';
 import Dashboard from './common/Dashboard';
 import AdminDashboard from './features/Admin/AdminDashboard';
 import SurveyorDashboard from './features/Surveyor/SurveyorDashboard';
+import RespondentDashboard from './features/Respondent/RespondentDashboard.js';
 
 function App() {
   const [backendData, setBackendData] = useState(null);
@@ -47,7 +48,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* regular login dashboard for respondents */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/respondentDash" element={<RespondentDashboard />} />
 
 
 

@@ -1,0 +1,14 @@
+.surveys {
+    margin-left: 270px; /* Adjust based on the sidebar width */
+    padding: 20px;
+  }
+
+  .surveys ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .surveys li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
