@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import '../../../global.css'
+import AppAppBar from '../../../components/AppAppBar';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline'; // Add this line
+import getLPTheme from '../../../getLPTheme';
 
 const AddSurveyTemplate = () => {
     const [templateName, setTemplateName] = useState('');
     const [description, setDescription] = useState(''); // New state for the description
+    const [mode, setMode] = useState('dark'); // Add this line
+    const LPtheme = createTheme(getLPTheme(mode)); // Add this line
 
     const handleTemplateNameChange = (e) => {
         setTemplateName(e.target.value);
@@ -42,21 +48,31 @@ const AddSurveyTemplate = () => {
         }
     };
 
+    const toggleColorMode = () => {
+        setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    };
+
     return (
-        <div className='wrapper'>
-            <h2>Add Survey Template</h2>
-            <form onSubmit={handleSubmit}>
-                <div className='options'>
-                    <label>Template Name:</label>
-                    <input type="text" value={templateName} onChange={handleTemplateNameChange} required />
+        <ThemeProvider theme={LPtheme}>
+            <CssBaseline />
+            <div>
+                <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+                <div className='wrapper'>
+                    <h2>Add Survey Template</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className='options'>
+                            <label>Template Name:</label>
+                            <input type="text" value={templateName} onChange={handleTemplateNameChange} required />
+                        </div>
+                        <div className='options'>
+                            <label>Description:</label>
+                            <textarea value={description} onChange={handleDescriptionChange} required />
+                        </div>
+                        <button type="submit">Create Template</button>
+                    </form>
                 </div>
-                <div className='options'>
-                    <label>Description:</label>
-                    <textarea value={description} onChange={handleDescriptionChange} required />
-                </div>
-                <button type="submit">Create Template</button>
-            </form>
-        </div>
+            </div>
+        </ThemeProvider>
     );
 };
 

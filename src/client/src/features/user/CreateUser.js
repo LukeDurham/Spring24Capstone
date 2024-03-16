@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import '../../global.css'
+import '../../global.css';
+import AdminAppBar from '../../components/AdminAppBar'; // Import the AdminAppBar component
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline'; // Add this line
+import getLPTheme from '../../getLPTheme';
 
 function CreateUser() {
   const [user, setUser] = useState({
     username: '',
     email: '',
   });
+  const [mode, setMode] = useState('dark'); // Add this line
+  const LPtheme = createTheme(getLPTheme(mode)); // Add this line
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,35 +44,45 @@ function CreateUser() {
     }
   };
 
+  const toggleColorMode = () => {
+    setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
-    <div className='wrapper'>
-      <h2>Create User</h2>
-      <form onSubmit={handleSubmit}>
-        <div className='input-sq-box'>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={user.username}
-            onChange={handleChange}
-            required
-          />
+    <ThemeProvider theme={LPtheme}>
+      <CssBaseline />
+      <div>
+        <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
+        <div className='wrapper'>
+          <h2>Create User</h2>
+          <form onSubmit={handleSubmit}>
+            <div className='input-sq-box'>
+              <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={user.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className='input-sq-box'> 
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={user.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button type="submit">Create User</button>
+          </form>
         </div>
-        <div className='input-sq-box'> 
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={user.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Create User</button>
-      </form>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
