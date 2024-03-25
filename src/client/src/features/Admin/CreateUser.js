@@ -42,24 +42,36 @@ function CreateUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
-      const response = await fetch('/api/users', {
+      // First, verify the role
+      const verifyResponse = await fetch(`/api/verifyRole/${user.role}`);
+      const verifyResult = await verifyResponse.json();
+  
+      if (!verifyResponse.ok || !verifyResult.isRoleValid) {
+        alert('Role verification failed or is invalid.');
+        return; // Stop the process if role verification fails
+      }
+  
+      // Proceed to create the user if the role is verified
+      const createUserResponse = await fetch('/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
       });
-      if (response.ok) {
-        const newUser = await response.json();
+  
+      if (createUserResponse.ok) {
+        const newUser = await createUserResponse.json();
         alert(`User created successfully: ${newUser.username}`);
         setUser({ username: '', email: '', role: '' }); // Reset form fields
       } else {
-        alert('Failed to create user');
+        alert('Failed to create user.');
       }
     } catch (error) {
-      console.error('Error creating user:', error);
-      alert('Error creating user. Please try again.');
+      console.error('Error:', error);
+      alert('Error processing request. Please try again.');
     }
   };
 

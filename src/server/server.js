@@ -30,6 +30,45 @@ app.get("/api/roles", async (req, res) => {
     }
 });
 
+app.get('/api/verifyRole/:roleId', async (req, res) => {
+    const { roleId } = req.params;
+  
+    try {
+      // Dynamically fetch the valid permissions for the role
+      // This might involve querying your database to get permissions
+      // based on the role's specific requirements or business logic
+      const validPermissionsResult = await db.query(`
+        SELECT permission_id
+        FROM role_valid_permissions
+        WHERE role_id = $1
+      `, [roleId]);
+  
+      // Extract permission IDs into an array
+      const validPermissions = validPermissionsResult.rows.map(row => row.permission_id);
+  
+      // Now verify if the role has these valid permissions
+      // Adjust the query to fit your database schema
+      const rolePermissionsResult = await db.query(`
+        SELECT p.id AS permission_id
+        FROM roles r
+        JOIN role_permissions rp ON r.id = rp.role_id
+        JOIN permissions p ON rp.permission_id = p.id
+        WHERE r.id = $1
+      `, [roleId]);
+  
+      // Check if the role has all the valid permissions
+      // This logic might need to be adjusted based on how you define "valid"
+      const hasValidPermissions = rolePermissionsResult.rows.every(row =>
+        validPermissions.includes(row.permission_id)
+      );
+  
+      res.json({ isRoleValid: hasValidPermissions });
+    } catch (error) {
+      console.error('Error verifying role:', error);
+      res.status(500).send('Server error during role verification.');
+    }
+  });
+  
 
 app.post("/api/roles", async (req, res) => {
     const { name } = req.body;
