@@ -68,26 +68,33 @@ app.get('/api/verifyRole/:roleId', async (req, res) => {
       res.status(500).send('Server error during role verification.');
     }
   });
+
+  app.get('/api/verifyRole/:roleId', async (req, res) => {
+    const { roleId } = req.params;
+  
+    try {
+      // Query to check if the role has the correct permissions
+      // This is a simplified example; adjust according to your schema and needs
+      const queryResult = await db.query(`
+        SELECT p.id AS permission_id
+        FROM roles r
+        JOIN role_permissions rp ON r.id = rp.role_id
+        JOIN permissions p ON rp.permission_id = p.id
+        WHERE r.id = $1
+      `, [roleId]);
+  
+      // Assuming permissions 1, 2, and 3 are valid for role creation
+      const validPermissions = [1, 2, 3];
+      const isRoleValid = queryResult.rows.some(row => validPermissions.includes(row.permission_id));
+  
+      res.json({ isRoleValid });
+    } catch (error) {
+      console.error('Error verifying role:', error);
+      res.status(500).send('Server error during role verification.');
+    }
+  });
   
 
-app.post("/api/roles", async (req, res) => {
-    const { name } = req.body;
-    try {
-        // Generate a random integer ID for the role
-        const roleId = generateRandomInteger();
-
-        // Insert the role into the database
-        const result = await pool.query(
-            "INSERT INTO roles (id, name, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING *;",
-            [roleId, name]
-        );
-
-        res.status(201).json(result.rows[0]);
-    } catch (error) {
-        console.error('Error creating role:', error);
-        res.status(500).json({ message: 'Failed to create role' });
-    }
-});
 
 
 
