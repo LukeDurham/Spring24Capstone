@@ -47,7 +47,7 @@ const AdminDashboard = () => {
                     <button onClick={goToCreateAccountPermissions} className="login-button">Survey Dashboard</button>
                     <button onClick={goToCreateUser} className="login-button">Create User</button>
                     <button onClick={goToCreateRole} className="login-button">Create Role</button>
-                    <button onClick={goToAssignUserRole} className="login-button">Assign User Role</button>
+                    <button onClick={goToCreateAccountPermissions} className="login-button">Assign User Role</button>
                     <button onClick={goToUserPermissions} className="login-button">Assign Permissions</button>
                     <button onClick={goToSurveyDashboard} className="login-button">Survey Dashboard</button>
                 </div>

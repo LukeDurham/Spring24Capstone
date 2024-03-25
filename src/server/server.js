@@ -30,6 +30,30 @@ app.get("/api/roles", async (req, res) => {
     }
 });
 
+// Create a new role
+//3/25/2024 made to have create role page to work with permissions.
+app.post("/api/roles", async (req, res) => {
+    try {
+        const { name } = req.body;
+
+        // Check if role name is provided
+        if (!name) {
+            return res.status(400).json({ message: 'Role name is required' });
+        }
+
+        // Query the database to insert a new role
+        const queryResult = await pool.query('INSERT INTO roles (name) VALUES ($1) RETURNING id, name', [name]);
+
+        // Send the newly created role as JSON response
+        res.status(201).json({ role: queryResult.rows[0] });
+    } catch (error) {
+        console.error('Error creating role:', error);
+        res.status(500).json({ message: 'Failed to create role' });
+    }
+});
+
+
+
 app.get('/api/verifyRole/:roleId', async (req, res) => {
     const { roleId } = req.params;
   
@@ -424,6 +448,40 @@ app.get("/api/projects", async (req, res) => {
 });
 
 
+
+//3/25/24 Made a permission api to create the perismission for role
+// Express route for creating a new permission
+// POST endpoint for creating a new role
+app.post('/api/permissions', requireAuth, async (req, res) => {
+    try {
+        // Retrieve user_id from the session
+        const { user_id } = req.user;
+
+        // Extract role name from request body
+        const { name } = req.body;
+
+        // Insert the new role into the database along with the createdBy user_id
+        await pool.query('INSERT INTO roles (name, created_by) VALUES ($1, $2)', [name, user_id]);
+
+        // Send success response
+        res.status(201).json({ message: 'Role created successfully' });
+    } catch (error) {
+        console.error('Error creating role:', error);
+        res.status(500).json({ message: 'Failed to create role' });
+    }
+});
+
+
+
+
+// Example middleware to check authentication
+function requireAuth(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+}
 
 
 

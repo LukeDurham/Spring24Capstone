@@ -58,7 +58,7 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/assign-user-role" element={<AssignUserRole />} />
         <Route path="/admin/user-permissions" element={<Permissions />} />
-        <Route path="/admin/create-account-permissions" element={<Permissions />} />
+        <Route path="/admin/create-account-permissions" element={<AccountPermissions />} />
 
 
 

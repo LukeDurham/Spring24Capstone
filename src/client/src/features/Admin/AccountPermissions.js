@@ -6,11 +6,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import getLPTheme from '../../getLPTheme';
 
 const AccountPermissions = () => {
-    const [roles, setRoles] = useState([
-        { id: '1', name: 'Admin' },
-        { id: '2', name: 'Respondent' },
-        { id: '3', name: 'Surveyor' },
-    ]);
+     const [roles, setRoles] = useState([
+         { id: '1', name: 'Admin' },
+         { id: '2', name: 'Respondent' },
+         { id: '3', name: 'Surveyor' },
+     ]);
     const [action, setAction] = useState('');
     const [newRoleName, setNewRoleName] = useState('');
     const [selectedRoleId, setSelectedRoleId] = useState('');
@@ -33,33 +33,43 @@ const AccountPermissions = () => {
         setNewRoleName(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (action === 'edit') {
-            if (!selectedRoleId) {
-                alert('Please select a role to edit.');
-                return;
-            }
-            if (!selectedRoleName.trim()) {
-                alert('Role name cannot be empty.');
-                return;
-            }
-            const updatedRoles = roles.map(role =>
-                role.id === selectedRoleId ? { ...role, name: selectedRoleName } : role
-            );
-            setRoles(updatedRoles);
-        } else if (action === 'create') {
+        try {
             if (!newRoleName.trim()) {
-                alert('Role name cannot be empty.');
+                alert('Permission name cannot be empty.');
                 return;
             }
-            const newRole = { id: Date.now().toString(), name: newRoleName };
-            setRoles(roles.concat(newRole));
+    
+            // Adjust the URL and data structure as per your backend API for permissions
+            const response = await fetch('/api/permissions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Example: Assuming 'createdBy' is a fixed value or derived from session/user context
+                body: JSON.stringify({ name: newRoleName, createdBy: 'user_id_here' }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to create permission');
+            }
+    
+            // Parse response data if needed
+            const data = await response.json();
+    
+            // Handle response data, like updating UI or state accordingly
+            console.log('Permission created:', data);
+    
+            // Reset form state or perform other UI updates as needed
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to create permission. Please try again.');
         }
-        setSelectedRoleId('');
-        setSelectedRoleName('');
-        setNewRoleName('');
     };
+    
+
+
 
     const toggleColorMode = () => {
         setMode(prev => prev === 'dark' ? 'light' : 'dark');
@@ -71,7 +81,7 @@ const AccountPermissions = () => {
             <div>
                 <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
                 <div className='wrapper'>
-                    <h2>{action === 'edit' ? 'Edit Role' : 'Create Role'}</h2>
+                    <h2>{action === 'edit' ? 'Edit Role' : 'Create Account Permissions'}</h2>
                     <button onClick={() => setAction('edit')}>Edit Role</button>
                     <button onClick={() => setAction('create')}>Create Role</button>
                     <form onSubmit={handleSubmit} className="custom-form">
