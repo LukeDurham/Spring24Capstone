@@ -1,14 +1,29 @@
 .surveys {
-    margin-left: 270px; /* Adjust based on the sidebar width */
-    padding: 20px;
-  }
+  padding: 20px;
+}
 
-  .surveys ul {
-    list-style-type: none;
-    padding: 0;
-  }
+.surveys-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
-  .surveys li {
-    margin-bottom: 10px;
-    font-size: 16px;
+.survey-box {
+  flex: 1 1 calc(33.333% - 20px); /* Adjusts the box size to fit 3 in a row, accounting for the gap */
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+@media screen and (max-width: 768px) {
+  .survey-box {
+    flex: 1 1 calc(50% - 20px); /* Adjusts to 2 columns on smaller screens */
   }
+}
+
+@media screen and (max-width: 480px) {
+  .survey-box {
+    flex: 1 1 100%; /* Adjusts to 1 column on very small screens */
+  }
+}

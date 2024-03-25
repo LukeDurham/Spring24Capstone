@@ -1,19 +1,20 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import Sidebar from '../../components/Sidebar';
+import Surveys from '../../components/Surveys'; // Corrected import path
+import '../../components/Sidebar.css';
+import '../../components/Surveys.css';
 
-const SurveyorDashboard = () => {
-    const navigate = useNavigate(); // Initialize navigate function
 
-    const goToSurveyDashboard = () => {
-        navigate('/surveydashboard'); // Programmatically navigate to /surveydashboard route
-    };
+function RespondentDashboard() {
+  return (
+    <div className="respondent-dashboard">
+      <Sidebar />
+      <div className="dashboard-content">
+        <Surveys />
+        <h1>Surveyor Dashboard</h1>
+      </div>
+    </div>
+  );
+}
 
-    return (
-        <div> {/* Wrap the buttons in a div */}
-            <h1>Surveyor Dashboard</h1>
-            <button onClick={goToSurveyDashboard} className="login-button">Survey Dashboard</button>
-        </div>
-    );
-};
-
-export default SurveyorDashboard;
+export default RespondentDashboard;

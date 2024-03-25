@@ -11,7 +11,7 @@ import DeleteQuestionFromSurvey from './survey/alterSurveys/DeleteQuestionFromSu
 import DisplaySurveyResults from './survey/alterSurveys/DisplaySurveyResults';
 import EmailTemplate from './survey/alterSurveys/EmailTemplate';
 import SurveyTypes from './survey/alterSurveys/SurveyTypes';
-import CreateUser from './features/user/CreateUser';
+import CreateUser from './features/Admin/CreateUser'
 import AddQuestionType from './survey/alterSurveys/AddQuestionType';
 import AddSurveyTemplate from './survey/alterSurveys/SurveyTemplate/AddSurveyTemplate';
 import CreateRole from './features/user/CreateRole';
@@ -21,6 +21,7 @@ import Dashboard from './common/Dashboard';
 import AdminDashboard from './features/Admin/AdminDashboard';
 import SurveyorDashboard from './features/Surveyor/SurveyorDashboard';
 import RespondentDashboard from './features/Respondent/RespondentDashboard.js';
+import AccountPermissions from './features/Admin/AccountPermissions.js';
 
 function App() {
   const [backendData, setBackendData] = useState(null);
@@ -49,6 +50,7 @@ function App() {
       <Routes>
         {/* regular login dashboard for respondents */}
         <Route path="/respondentDash" element={<RespondentDashboard />} />
+        <Route path="/surveydashboard" element={<SurveyorDashboard />} />
 
 
 

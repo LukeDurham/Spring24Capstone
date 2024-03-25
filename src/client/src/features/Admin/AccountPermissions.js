@@ -1,84 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../global.css';
-import AdminAppBar from '../../components/AdminAppBar'; // Import the AdminAppBar component
+import AdminAppBar from '../../components/AdminAppBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline'; // Add this line
+import CssBaseline from '@mui/material/CssBaseline';
 import getLPTheme from '../../getLPTheme';
 
 const AccountPermissions = () => {
-    const [roles, setRoles] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [selectedUserId, setSelectedUserId] = useState('');
-    const [selectedRole, setSelectedRole] = useState('');
-    const [mode, setMode] = useState('dark'); // Add this line
-    const LPtheme = createTheme(getLPTheme(mode)); // Add this line
-
-    useEffect(() => {
-        fetchRoles();
-        fetchUsers();
-    }, []);
-
-    // Fetches roles from the backend
-    const fetchRoles = async () => {
-        try {
-            const response = await fetch('/api/roles');
-            const data = await response.json();
-            setRoles(data.roles || []);
-        } catch (error) {
-            console.error('Error fetching roles:', error);
-        }
-    };
-
-    // Fetches users from the backend and expects an array of objects with id and email
-    const fetchUsers = async () => {
-        try {
-            const response = await fetch('/api/users');
-            const data = await response.json();
-            setUsers(data || []); // Update based on the actual response structure
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
-    };
-
-    const handleUserChange = (e) => {
-        setSelectedUserId(e.target.value);
-    };
+    const [roles, setRoles] = useState([
+        { id: '1', name: 'Admin' },
+        { id: '2', name: 'Respondent' },
+        { id: '3', name: 'Surveyor' },
+    ]);
+    const [action, setAction] = useState('');
+    const [newRoleName, setNewRoleName] = useState('');
+    const [selectedRoleId, setSelectedRoleId] = useState('');
+    const [selectedRoleName, setSelectedRoleName] = useState('');
+    const [mode, setMode] = useState('dark');
+    const LPtheme = createTheme(getLPTheme(mode));
 
     const handleRoleChange = (e) => {
-        setSelectedRole(e.target.value);
+        const roleId = e.target.value;
+        setSelectedRoleId(roleId);
+        const selectedRole = roles.find(role => role.id === roleId);
+        setSelectedRoleName(selectedRole ? selectedRole.name : '');
     };
 
-    // Handles submitting the form to assign a role to a user
-    const handleSubmit = async (e) => {
+    const handleRoleNameChange = (e) => {
+        setSelectedRoleName(e.target.value);
+    };
+
+    const handleNewRoleNameChange = (e) => {
+        setNewRoleName(e.target.value);
+    };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (!selectedUserId || !selectedRole) {
-            alert('Please select both a user and a role.');
-            return;
-        }
-        try {
-            // No need to find the user just to get the email, since we now use IDs
-            const response = await fetch('/api/assign_role', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                // Directly use selectedUserId and selectedRole which are IDs
-                body: JSON.stringify({ userId: selectedUserId, roleId: selectedRole }),
-            });
-            if (response.ok) {
-                console.log('Role assigned successfully');
-                setSelectedUserId('');
-                setSelectedRole('');
-            } else {
-                console.error('Failed to assign role');
+        if (action === 'edit') {
+            if (!selectedRoleId) {
+                alert('Please select a role to edit.');
+                return;
             }
-        } catch (error) {
-            console.error('Error assigning role:', error);
+            if (!selectedRoleName.trim()) {
+                alert('Role name cannot be empty.');
+                return;
+            }
+            const updatedRoles = roles.map(role =>
+                role.id === selectedRoleId ? { ...role, name: selectedRoleName } : role
+            );
+            setRoles(updatedRoles);
+        } else if (action === 'create') {
+            if (!newRoleName.trim()) {
+                alert('Role name cannot be empty.');
+                return;
+            }
+            const newRole = { id: Date.now().toString(), name: newRoleName };
+            setRoles(roles.concat(newRole));
         }
+        setSelectedRoleId('');
+        setSelectedRoleName('');
+        setNewRoleName('');
     };
 
     const toggleColorMode = () => {
-        setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+        setMode(prev => prev === 'dark' ? 'light' : 'dark');
     };
 
     return (
@@ -87,27 +71,34 @@ const AccountPermissions = () => {
             <div>
                 <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
                 <div className='wrapper'>
-                    <h2>Assign User Role</h2>
+                    <h2>{action === 'edit' ? 'Edit Role' : 'Create Role'}</h2>
+                    <button onClick={() => setAction('edit')}>Edit Role</button>
+                    <button onClick={() => setAction('create')}>Create Role</button>
                     <form onSubmit={handleSubmit} className="custom-form">
-                        <div className='custom-dropdown custom-dropdown-user'>
-                            <label>User Email:</label>
-                            <select value={selectedUserId} onChange={handleUserChange} required>
-                                <option value="">Select User Email</option>
-                                {users.map((user) => (
-                                    <option key={user.id} value={user.id}>{user.email}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className='custom-dropdown custom-dropdown-role'>
-                            <label>Role:</label>
-                            <select value={selectedRole} onChange={handleRoleChange} required>
-                                <option value="">Select Role</option>
-                                {roles.map((role) => (
-                                    <option key={role.id} value={role.id}>{role.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <button type="submit">Assign Role</button>
+                        {action === 'edit' && (
+                             <>
+                                <div className='custom-dropdown custom-dropdown-role'>
+                                    <label>Select Role to Edit:</label>
+                                    <select value={selectedRoleId} onChange={handleRoleChange} required>
+                                        <option value="">Select Role</option>
+                                        {roles.map((role) => (
+                                            <option key={role.id} value={role.id}>{role.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='custom-dropdown custom-dropdown-role'>
+                                    <label>New Role Name:</label>
+                                    <input type="text" value={selectedRoleName} onChange={handleRoleNameChange} />
+                                </div>
+                            </>
+                        )}
+                        {action === 'create' && (
+                            <div className='custom-dropdown custom-dropdown-role'>
+                                <label>Role Name:</label>
+                                <input type="text" value={newRoleName} onChange={handleNewRoleNameChange} required />
+                            </div>
+                        )}
+                        <button type="submit">{action === 'edit' ? 'Update Role' : 'Submit'}</button>
                     </form>
                 </div>
             </div>
