@@ -18,7 +18,7 @@ module.exports = pool; // Export the pool for use in other files
 const setupDatabase = async () => {
   try {
     // Adjust the path to where your SQL file is located within your project
-    const sqlFilePath = path.join(__dirname, '../db/init-db.sql');
+    const sqlFilePath = path.join(__dirname, '../db/capstonedb.sql');
 
     // Read the SQL file
     const sqlQuery = fs.readFileSync(sqlFilePath, { encoding: 'utf-8' });

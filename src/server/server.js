@@ -6,11 +6,6 @@ const pool = require('./dbSetup');
 
 const app = express();
 
-// Function to generate a random integer ID
-function generateRandomInteger() {
-    // Generate a random number between 1 and 1000000 (adjust the range as needed)
-    return Math.floor(Math.random() * 1000000) + 1;
-}
 
 
 app.use(bodyParser.json());
@@ -98,7 +93,6 @@ app.post("/api/questions", async (req, res) => {
 
     try {
         // Generate a random integer ID for the question
-        const question_id = generateRandomInteger();
 
         // Find the question type ID based on the question type name
         const questionTypeResult = await pool.query('SELECT id FROM question_types WHERE name = $1', [question_type]);
@@ -215,15 +209,14 @@ app.post("/api/survey_templates", async (req, res) => {
     const { name } = req.body;
 
     try {
-        // Generate a random ID for the survey template
-        // Consider using a more reliable method like UUIDs for production
-        const id = Math.floor(Math.random() * 1000000);
-
-        // Insert the survey template into the database
-        await pool.query(
-            "INSERT INTO survey_templates (id, name) VALUES ($1, $2)",
-            [id, name]
+        // Insert the survey template into the database without specifying the ID
+        const result = await pool.query(
+            "INSERT INTO survey_templates (name) VALUES ($1) RETURNING id",
+            [name]
         );
+
+        // Retrieve the auto-generated ID
+        const id = result.rows[0].id;
 
         res.status(201).json({ message: 'Survey template created successfully', id });
     } catch (error) {
@@ -231,6 +224,7 @@ app.post("/api/survey_templates", async (req, res) => {
         res.status(500).json({ message: 'Failed to create survey template' });
     }
 });
+
 
 // Endpoint to fetch all survey templates
 app.get("/api/survey_templates", async (req, res) => {
@@ -340,26 +334,6 @@ app.post("/api/surveys", async (req, res) => {
 });
 
 
-// Create Survey Template
-app.post("/api/survey_templates", async (req, res) => {
-    const { name } = req.body;
-
-    try {
-        // Generate a random ID for the survey template
-        const id = generateRandomInteger();
-
-        // Insert the survey template into the database
-        await pool.query(
-            "INSERT INTO survey_templates (id, name, created_at, updated_at) VALUES ($1, $2, NOW(), NOW())",
-            [id, name]
-        );
-
-        res.status(201).json({ message: 'Survey template created successfully', id });
-    } catch (error) {
-        console.error('Error creating survey template:', error);
-        res.status(500).json({ message: 'Failed to create survey template' });
-    }
-});
 
 // Get all Question Types
 app.get("/api/question_types", async (req, res) => {
