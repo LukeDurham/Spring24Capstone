@@ -1,5 +1,5 @@
 CREATE TABLE "survey_templates" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "description" varchar,
   "created_at" timestamp,
@@ -11,7 +11,7 @@ CREATE TABLE "survey_templates" (
 );
 
 CREATE TABLE "survey_template_questions" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "question_id" integer,
   "survey_template_id" integer,
   "description" varchar,
@@ -24,7 +24,7 @@ CREATE TABLE "survey_template_questions" (
 );
 
 CREATE TABLE "surveys" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "survey_template_id" integer,
   "surveyor_id" integer,
   "organization_id" integer,
@@ -39,7 +39,7 @@ CREATE TABLE "surveys" (
 );
 
 CREATE TABLE "users" (
-  "id" integer PRIMARY KEY AUTOINCREMENT, 
+  "id" SERIAL PRIMARY KEY, 
   "username" varchar,
   "email" varchar,
   "created_at" timestamp,
@@ -51,7 +51,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "user_roles" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "user_id" integer,
   "role_id" integer,
   "created_at" timestamp,
@@ -63,7 +63,7 @@ CREATE TABLE "user_roles" (
 );
 
 CREATE TABLE "roles" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,
@@ -74,7 +74,7 @@ CREATE TABLE "roles" (
 );
 
 CREATE TABLE "role_permissions" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "permission_id" integer,
   "role_id" integer,
   "created_at" timestamp,
@@ -86,7 +86,7 @@ CREATE TABLE "role_permissions" (
 );
 
 CREATE TABLE "permissions" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,
@@ -97,7 +97,7 @@ CREATE TABLE "permissions" (
 );
 
 CREATE TABLE "organizations" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,
@@ -108,7 +108,7 @@ CREATE TABLE "organizations" (
 );
 
 CREATE TABLE "projects" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,
@@ -119,7 +119,7 @@ CREATE TABLE "projects" (
 );
 
 CREATE TABLE "surveyor_roles" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,
@@ -130,7 +130,7 @@ CREATE TABLE "surveyor_roles" (
 );
 
 CREATE TABLE "questions" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "question_type_id" integer,
   "question" varchar,
   "created_at" timestamp,
@@ -142,7 +142,7 @@ CREATE TABLE "questions" (
 );
 
 CREATE TABLE "question_types" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "created_at" timestamp,
   "created_by" integer,
@@ -153,7 +153,7 @@ CREATE TABLE "question_types" (
 );
 
 CREATE TABLE "responses" (
-  "id" integer PRIMARY KEY AUTOINCREMENT,
+  "id" SERIAL PRIMARY KEY,
   "question_id" integer,
   "survey_id" integer,
   "response" varchar,

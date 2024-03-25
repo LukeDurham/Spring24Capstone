@@ -14,6 +14,11 @@ const AdminDashboard = () => {
     const goToCreateUser = () => {
         navigate('/createuser'); // Programmatically navigate to /createuser route
     };
+
+    const goToCreateAccountPermissions = () => {
+        navigate('/admin/create-account-permissions'); // Programmatically navigate to /createuser route
+    };
+
     const goToCreateRole = () => {
         navigate('/createrole'); // Programmatically navigate to /createrole route
     };
@@ -39,6 +44,7 @@ const AdminDashboard = () => {
                 <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
                 <div className="wrapper"> {/* Wrap the buttons in a div */}
                     <h1>Admin Dashboard</h1>
+                    <button onClick={goToCreateAccountPermissions} className="login-button">Survey Dashboard</button>
                     <button onClick={goToCreateUser} className="login-button">Create User</button>
                     <button onClick={goToCreateRole} className="login-button">Create Role</button>
                     <button onClick={goToAssignUserRole} className="login-button">Assign User Role</button>
