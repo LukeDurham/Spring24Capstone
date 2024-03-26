@@ -30,7 +30,7 @@ const AdminDashboard = () => {
     };
 
     const goToSurveyDashboard = () => {
-        navigate('/surveydashboard'); // Programmatically navigate to /login route
+        navigate('/surveyor/dashboard'); // Programmatically navigate to /login route
     };
 
     const toggleColorMode = () => {
@@ -44,12 +44,12 @@ const AdminDashboard = () => {
                 <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
                 <div className="wrapper"> {/* Wrap the buttons in a div */}
                     <h1>Admin Dashboard</h1>
-                    <button onClick={goToCreateAccountPermissions} className="login-button">Survey Dashboard</button>
+                    <button onClick={goToSurveyDashboard} className="login-button">Survey Dashboard</button>
                     <button onClick={goToCreateUser} className="login-button">Create User</button>
                     <button onClick={goToCreateRole} className="login-button">Create Role</button>
-                    <button onClick={goToCreateAccountPermissions} className="login-button">Assign User Role</button>
+                    <button onClick={goToCreateAccountPermissions} className="login-button">Create Permissions</button>
                     <button onClick={goToUserPermissions} className="login-button">Assign Permissions</button>
-                    <button onClick={goToSurveyDashboard} className="login-button">Survey Dashboard</button>
+                    <button onClick={goToAssignUserRole} className="login-button">Assign Users Role</button>
                 </div>
             </div>
         </ThemeProvider>

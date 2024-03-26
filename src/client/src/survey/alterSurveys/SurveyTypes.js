@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../global.css'
-import AppAppBar from '../../components/AppAppBar';
+import SurvAppBar from '../../features/Surveyor/SurvAppBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'; // Add this line
 import getLPTheme from '../../getLPTheme';
@@ -44,7 +44,7 @@ const SurveyTypes = () => {
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
             <div>
-                <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+                <SurvAppBar mode={mode} toggleColorMode={toggleColorMode} />
                 <div className='wrapper'>
                     <h2>Survey Types</h2>
                     <select value={selectedSurveyType} onChange={handleSurveyTypeChange}>

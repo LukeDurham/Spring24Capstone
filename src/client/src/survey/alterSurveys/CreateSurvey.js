@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../global.css';
-import AppAppBar from '../../components/AppAppBar'; // Import the AppAppBar component
+import SurvAppBar from '../../features/Surveyor/SurvAppBar'; // Import the AppAppBar component
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'; // Add this line
 import getLPTheme from '../../getLPTheme';
@@ -114,7 +114,7 @@ const CreateSurvey = () => {
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
             <div>
-                <AppAppBar mode={mode} toggleColorMode={toggleColorMode} /> {/* Include the AppAppBar component */}
+                <SurvAppBar mode={mode} toggleColorMode={toggleColorMode} /> {/* Include the AppAppBar component */}
                 <div className='wrapper'>
                     <h2>Create Survey</h2>
                     <form onSubmit={handleSubmit}>

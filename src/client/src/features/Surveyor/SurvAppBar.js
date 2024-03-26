@@ -5,10 +5,10 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import ToggleColorMode from './ToggleColorMode';
-import MenuItem from '@mui/material/MenuItem'; // Add this import
+import ToggleColorMode from '../../components/ToggleColorMode';
+import MenuItem from '@mui/material/MenuItem';
 
-function AdminAppBar({ mode, toggleColorMode }) {
+function SurvAppBar({ mode, toggleColorMode }) {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -52,38 +52,38 @@ function AdminAppBar({ mode, toggleColorMode }) {
           >
             <MenuItem
               component={Link}
-              to="/admin/dashboard"
+              to="/surveyor/dashboard"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
-              Admin Dashboard
+              Home
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/createuser"
+              to="/create-survey"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
-              Create User
+              Create Survey
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/createrole"
+              to="/add-survey-template"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
-              Create Role
+              Survey Templates
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/admin/assign-user-role"
+              to="/email-template"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
-              Assign Role
+              Email Template
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/admin/user-permissions"
+              to="/survey-types"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
-              Assign Permissions
+              Filtering
             </MenuItem>
           </Box>
         </Box>
@@ -92,9 +92,9 @@ function AdminAppBar({ mode, toggleColorMode }) {
   );
 }
 
-AdminAppBar.propTypes = {
+SurvAppBar.propTypes = {
   mode: PropTypes.oneOf(['dark', 'light']).isRequired,
   toggleColorMode: PropTypes.func.isRequired,
 };
 
-export default AdminAppBar;
+export default SurvAppBar;

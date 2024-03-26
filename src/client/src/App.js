@@ -4,7 +4,7 @@ import HomePage from './common/HomePage';
 import Login from './common/Login';
 import About from './common/About';
 import Survey from './survey/Survey';
-import SurveyDashboard from './survey/SurveyDashboard';
+
 import AddSurveyQuestions from './survey/alterSurveys/AddSurveyQuestions';
 import CreateSurvey from './survey/alterSurveys/CreateSurvey';
 import DeleteQuestionFromSurvey from './survey/alterSurveys/DeleteQuestionFromSurvey';
@@ -19,9 +19,10 @@ import AssignUserRole from './features/Admin/AssignUserRole';
 import Permissions from './features/Admin/Permissions';
 import Dashboard from './common/Dashboard';
 import AdminDashboard from './features/Admin/AdminDashboard';
-import SurveyorDashboard from './features/Surveyor/SurveyorDashboard';
+import SurveyorDashboard from './survey/SurveyDashboard.js';
 import RespondentDashboard from './features/Respondent/RespondentDashboard.js';
 import AccountPermissions from './features/Admin/AccountPermissions.js';
+import SurveyDashboard from './features/Surveyor/SurveyorDashboard.js';
 
 function App() {
   const [backendData, setBackendData] = useState(null);
@@ -63,7 +64,7 @@ function App() {
 
 
         {/* Surveyor routes */}
-        <Route path="/surveyor/dashboard" element={<SurveyorDashboard />} />
+        <Route path="/surveyor/dashboard" element={<SurveyDashboard />} />
 
 
         <Route path="/" element={<HomePage />} />

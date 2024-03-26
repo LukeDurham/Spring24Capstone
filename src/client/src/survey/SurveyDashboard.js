@@ -6,7 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'; // Add this line
 import getLPTheme from '../getLPTheme';
 
-const SurveyDashboard = () => {
+const SurveyorDashboard = () => {
     const [mode, setMode] = React.useState('dark'); // Add this line
     const LPtheme = createTheme(getLPTheme(mode)); // Add this line
 
@@ -42,4 +42,4 @@ const SurveyDashboard = () => {
     );
 };
 
-export default SurveyDashboard;
+export default SurveyorDashboard;
