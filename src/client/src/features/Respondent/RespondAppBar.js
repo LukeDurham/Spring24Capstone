@@ -5,10 +5,10 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import ToggleColorMode from './ToggleColorMode';
-import MenuItem from '@mui/material/MenuItem'; // Add this import
+import ToggleColorMode from '../../components/ToggleColorMode';
+import MenuItem from '@mui/material/MenuItem';
 
-function AdminAppBar({ mode, toggleColorMode }) {
+function RespondAppBar({ mode, toggleColorMode }) {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -52,39 +52,26 @@ function AdminAppBar({ mode, toggleColorMode }) {
           >
             <MenuItem
               component={Link}
-              to="/admin/dashboard"
+              to="/respondentDash"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
-              Admin Dashboard
+              Home
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/createuser"
+              to="/settings"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
-              Create User
+              Settings
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/createrole"
-              sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
-            >
-              Create Role
-            </MenuItem>
-            <MenuItem
-              component={Link}
-              to="/admin/assign-user-role"
-              sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
-            >
-              Assign Role
-            </MenuItem>
-            <MenuItem
-              component={Link}
-              to="/login"
+              to="/Logout"
               sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
             >
               Logout
             </MenuItem>
+            
           </Box>
         </Box>
       </Drawer>
@@ -92,9 +79,9 @@ function AdminAppBar({ mode, toggleColorMode }) {
   );
 }
 
-AdminAppBar.propTypes = {
+RespondAppBar.propTypes = {
   mode: PropTypes.oneOf(['dark', 'light']).isRequired,
   toggleColorMode: PropTypes.func.isRequired,
 };
 
-export default AdminAppBar;
+export default RespondAppBar;

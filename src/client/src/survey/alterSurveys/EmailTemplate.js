@@ -26,6 +26,10 @@ const EmailTemplates = () => {
         setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
     };
 
+    const textColorStyle = {
+        color: mode === 'dark' ? '#fff' : '#000',
+    };
+
     return (
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
@@ -35,7 +39,7 @@ const EmailTemplates = () => {
                     <h2>Email Templates</h2>
                     <form onSubmit={handleSubmit}>
                         <div className='options'>
-                            <label>Email Template:</label>
+                            <label style={textColorStyle}>Email Template:</label>
                             <textarea value={template} onChange={handleTemplateChange} required />
                         </div>
                         <button type="submit">Save Template</button>

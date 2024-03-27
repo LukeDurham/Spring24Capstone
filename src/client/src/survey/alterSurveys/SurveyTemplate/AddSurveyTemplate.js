@@ -52,6 +52,10 @@ const AddSurveyTemplate = () => {
         setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
     };
 
+    const textColorStyle = {
+        color: mode === 'dark' ? '#fff' : '#000',
+    };
+
     return (
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
@@ -61,11 +65,11 @@ const AddSurveyTemplate = () => {
                     <h2>Add Survey Template</h2>
                     <form onSubmit={handleSubmit}>
                         <div className='options'>
-                            <label>Template Name:</label>
+                            <label style={textColorStyle}>Template Name:</label>
                             <input type="text" value={templateName} onChange={handleTemplateNameChange} required />
                         </div>
                         <div className='options'>
-                            <label>Description:</label>
+                            <label style={textColorStyle}>Description:</label>
                             <textarea value={description} onChange={handleDescriptionChange} required />
                         </div>
                         <button type="submit">Create Template</button>

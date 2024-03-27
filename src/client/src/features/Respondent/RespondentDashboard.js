@@ -1,19 +1,37 @@
-import React from "react";
-import Sidebar from '../../components/Sidebar';
+import React,{ useState } from "react";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline'; // Add this line
+import getLPTheme from '../../getLPTheme';
+
 import Surveys from '../../components/Surveys'; // Corrected import path
-import '../../components/Sidebar.css';
+import RespondAppBar from "./RespondAppBar";
 import '../../components/Surveys.css';
 
+const RespondentDashboard = () => {  
+  
+  const [mode, setMode] = useState('dark'); // Add this line
+  const LPtheme = createTheme(getLPTheme(mode)); // Add this line
 
-function RespondentDashboard() {
+const toggleColorMode = () => {
+  setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+};
+
+
   return (
-    <div className="respondent-dashboard">
-      <Sidebar />
-      <div className="dashboard-content">
-        <Surveys />
-        <h1>Respondent Dashboard</h1>
-      </div>
-    </div>
+    <ThemeProvider theme={LPtheme}>
+      <CssBaseline />
+        <div>
+        <RespondAppBar mode={mode} toggleColorMode={toggleColorMode} />
+          <div className="respondent-dashboard">
+      
+          <div className="dashboard-content">
+            <Surveys />
+            <h1>Respondent Dashboard</h1>
+          </div>
+          </div>
+          
+        </div>
+    </ThemeProvider>
   );
 }
 

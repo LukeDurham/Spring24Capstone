@@ -79,13 +79,18 @@ function CreateUser() {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
+  // Define a style object for text color based on mode
+  const textColorStyle = {
+    color: mode === 'dark' ? '#fff' : '#000',
+  };
+
   return (
     <ThemeProvider theme={LPtheme}>
       <CssBaseline />
       <div>
         <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
-        <div className='wrapper'>
-          <h2>Create User</h2>
+        <div className='wrapper' style={textColorStyle}> {/* Apply text color style */}
+          <h2 style={textColorStyle}>Create User</h2> {/* Apply text color style to the title */}
           <form onSubmit={handleSubmit}>
             <div className='input-sq-box'>
               {/* Username Input */}
@@ -94,21 +99,23 @@ function CreateUser() {
               {/* Email Input */}
             </div>
             <div className='input-sq-box'>
-              <label htmlFor="role">Role:</label>
+              <label htmlFor="role" style={textColorStyle}>Role:</label> {/* Apply text color style */}
               <select
                 id="role"
                 name="role"
                 value={user.role}
                 onChange={handleChange}
                 required
+                style={{ color: '#000' }} 
               >
                 <option value="">Select a role</option>
                 {roles.map(role => (
                   <option key={role.id} value={role.id}>{role.name}</option>
                 ))}
               </select>
+              
             </div>
-            <button type="submit">Create User</button>
+            <button type="submit" style={{ color: '#000' }}>Create User</button> {/* Always black text */}
           </form>
         </div>
       </div>

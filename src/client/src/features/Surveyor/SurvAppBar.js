@@ -85,6 +85,20 @@ function SurvAppBar({ mode, toggleColorMode }) {
             >
               Filtering
             </MenuItem>
+            <MenuItem
+              component={Link}
+              to="/admin/dashboard"
+              sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
+            >
+              Admin Dashboard
+            </MenuItem>
+            <MenuItem
+              component={Link}
+              to="/login"
+              sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
+            >
+              Logout
+            </MenuItem>
           </Box>
         </Box>
       </Drawer>

@@ -85,6 +85,13 @@ function AppAppBar({ mode, toggleColorMode }) {
             >
               Filtering
             </MenuItem>
+            <MenuItem
+              component={Link}
+              to="/login"
+              sx={{ textDecoration: 'none', color: 'inherit', mb: 1 }}
+            >
+              Logout
+            </MenuItem>
           </Box>
         </Box>
       </Drawer>

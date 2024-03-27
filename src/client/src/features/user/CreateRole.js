@@ -43,19 +43,24 @@ const CreateRole = () => {
         setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
     };
 
+    // Define a style object for text color based on mode
+    const textColorStyle = {
+        color: mode === 'dark' ? '#fff' : '#000',
+    };
+
     return (
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
             <div>
                 <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
-                <div className='wrapper'>
-                    <h2>Create Role</h2>
+                <div className='wrapper' style={textColorStyle}> {/* Apply text color style */}
+                    <h2 style={textColorStyle}>Create Role</h2> {/* Apply text color style to the title */}
                     <form onSubmit={handleSubmit}>
                         <div className='input-sq-box'>
-                            <label>Role Name:</label>
+                            <label style={textColorStyle}>Role Name:</label> {/* Apply text color style */}
                             <input type="text" value={roleName} onChange={handleRoleNameChange} required />
                         </div>
-                        <button type="submit">Create Role</button>
+                        <button type="submit" style={{ color: '#000' }}>Create Role</button> {/* Always black text */}
                     </form>
                 </div>
             </div>

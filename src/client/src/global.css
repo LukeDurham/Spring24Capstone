@@ -27,66 +27,19 @@ a {
 .button {
   background-color: #fff;
   color: #333;
-  border-radius: 20px;
-  padding: 10px 20px;
+  border-radius: 12px; /* Adjust border radius for rectangle shape */
+  padding: 20px 30px; /* Adjust padding for larger buttons */
   margin: 10px;
-  border: none;
+  border: 2px solid #000;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px; /* Maximum width for the button */
+  width: auto; /* Allow buttons to expand as needed */
 }
 
 .button:hover {
   background-color: #e0e0e0; /* Light grey on hover */
-}
-
-/* Buttons */
-.login-button {
-  background-color: #fff;
-  color: #333;
-  border-radius: 20px;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.login-button:hover {
-  background-color: #e0e0e0; /* Light grey on hover */
-}
-
-.submit-button{
-  background-color: #fff;
-  color: #333;
-  border-radius: 20px;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  align-self: flex-end;
-}
-
-.submit-button:hover {
-  background-color: #e0e0e0; /* Light grey on hover */
-}
-
-/* Add Option Button */
-.option-button {
-  background-color: #fff; /* Blue */
-  color: #333;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.option-button:hover {
-  background-color: #e0e0e0; /* Dark blue on hover */
 }
 
 /* Header */
@@ -99,11 +52,11 @@ a {
 }
 
 h1{
-  font-size: 40px;
-  font-weight: bold;
-  text-align: center;
-  color: #800000; /* Hint of red */
-  margin-bottom: 30px;
+  font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%; /* Take up full width */
 }
 
 h2{
@@ -205,6 +158,9 @@ h2{
   .container {
     padding: 0 10px;
   }
+  .wrapper {
+    justify-content: center; /* Center buttons on smaller screens */
+  }
 }
 
 /* Logos */
@@ -296,8 +252,8 @@ body, .home-page {
 
 /* Login Page */
 
-.wrapper {
-    width: 420px;
+.wrapper1 {
+  width: 420px;
     background-color: crimson;
     border: 2px solid rgba(255, 255, 255,.2);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
@@ -306,36 +262,92 @@ body, .home-page {
     padding: 30px 40px;
 }
 
+.wrapper {
+  background-color: transparent;
+  border: none;
+  padding: 20px;
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  width: auto; /* Allow the wrapper to expand as needed */
+  max-width: 1800px; /* Set a maximum width for the wrapper */
+  margin: 20px auto; /* Center the wrapper horizontally and add margin-top */
+  position: relative; /* Position relative for absolute positioning */
+  flex-direction: column; /* Stack items vertically */
+  pointer-events: none; /* Make the wrapper transparent to pointer events */
+}
+
+/* Title Style */
+.wrapper::before {
+  content: ''; /* Add a pseudo-element */
+  display: block; /* Make it a block-level element */
+  height: 50px; /* Adjust the height as needed */
+  width: 100%; /* Take up full width */
+  position: absolute; /* Position absolutely */
+  top: -70px; /* Adjust the distance from the top */
+  background-color: transparent; /* Match the wrapper's background */
+}
+
 .wrapper h1{
-    font-size: 36px;
-    text-align: center;
-    color: #333;
+  font-size: 36px;
+  text-align: center;
+  color: #333;
+}
+
+.wrapper h2 {
+  font-size: 36px;
+  text-align: center; /* Align the text to the left */
+  color: #333;
+  width: 100%; /* Ensure the text takes up the full width */
+  margin-bottom: 30px; /* Adjust spacing as needed */
+}
+
+.wrapper input{
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
+}
+
+.wrapper option{
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
+}
+
+.wrapper.horiz-button {
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
+}
+
+.wrapper.horiz-button button {
+  margin-bottom: 10px; /* Adjust as needed */
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
 }
 
 .wrapper .input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    
-    margin: 30px 0;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
+  margin: 30px 0;
 }
 
 .wrapper select {
   width: 200px; /* Adjust width as needed */
   display: inline-block;
-    vertical-align: middle;
-    margin-right: 10px;
-    padding: 8px;
-    font-size: 14px; /* Adjust font size as needed */
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
+  vertical-align: middle;
+  margin-right: 10px;
+  padding: 8px;
+  font-size: 14px; /* Adjust font size as needed */
 }
 
 .wrapper ul {
   list-style-type: none;
   padding: 0;
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
 }
 
 .wrapper ul li {
   margin-bottom: 10px;
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
 }
 
 .wrapper h3 {
@@ -345,41 +357,49 @@ body, .home-page {
 }
 
 .input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
-    outline: none;
-    border-radius: 40px;  
-    font-size: 16px;
-    color: aliceblue; 
-    padding: 20px 45px 20px 20px;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  outline: none;
+  border-radius: 40px;  
+  font-size: 16px;
+  color: aliceblue; 
+  padding: 20px 45px 20px 20px;
 }
 
 .input-box input::placeholder{
-    color: aliceblue;
+  color: aliceblue;
 }
 
 .input-box .icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
 }
 
 .wrapper .input-sq-box {
   position: relative;
   width: 100%;
   height: 50px;
-  
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
+  margin: 30px 0;
+}
+
+.wrapper1 .input-sq-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
   margin: 30px 0;
 }
 
 .input-sq-box input {
   width: 100%;
   height: 100%;
-  
+
   border: 2px solid rgba(255, 255, 255, .2);
   outline: none;
   border-radius: 40px;  
@@ -401,179 +421,283 @@ body, .home-page {
 }
 
 .wrapper .forgot{
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
+}
+
+.wrapper1 .forgot{
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
+  pointer-events: auto; /* Re-enable pointer events for the buttons */
 }
 
 .forgot label input {
-    accent-color: #fff;
-    margin-right: 4px;
+  accent-color: #fff;
+  margin-right: 4px;
 }
 
 .forgot a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 .forgot a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .wrapper button {
-  width: 100%;
-  height: 45px;
-  background: #fff;
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-  font-weight: 700;
-  margin-top: 10px; /* Add margin-top for space between buttons */
-}
+  background-color: #fff;
+    color: #333;
+    border-radius: 12px; /* Adjust border radius for rectangle shape */
+    padding: 20px 30px; /* Adjust padding for larger buttons */
+    margin: 10px;
+    border: 2px solid #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px; /* Maximum width for the button */
+    width: auto; /* Allow buttons to expand as needed */
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
 
-.wrapper .register-link {
+  .wrapper1 button {
+    background-color: #fff;
+      color: #333;
+      border-radius: 12px; /* Adjust border radius for rectangle shape */
+      padding: 20px 30px; /* Adjust padding for larger buttons */
+      margin: 10px;
+      border: 2px solid #000;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 300px; /* Maximum width for the button */
+      width: auto; /* Allow buttons to expand as needed */
+      pointer-events: auto; /* Re-enable pointer events for the buttons */
+    }
+
+  .wrapper .register-link {
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
 
-}
+  .wrapper1 .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
 
-.register-link p a {
+  .register-link p a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
-}
-
-.register-link p a:hover{
+  }
+  
+  .register-link p a:hover{
     text-decoration: underline;
-}
+  }
+  
+  body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  *{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .option-button,
+  .submit-button {
+    width: calc(100% - 20px); /* Adjust width as needed */
+    margin: 10px; /* Add margin for space */
+  }
+  
+  /* Option Style */
+  .option {
+    display: inline-block;
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    padding: 8px 16px; /* Padding */
+    margin-right: 10px; /* Margin between options */
+    vertical-align: middle; /* Aligns options vertically with adjacent content */
+  }
+  
+  /* Custom Dropdown Style */
+  .custom-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .custom-dropdown select {
+    appearance: none; /* Remove default arrow */
+    padding: 10px 40px 10px 15px; /* Adjust padding as needed */
+    border: 2px solid #ccc; /* Add border */
+    background-color: #fff; /* Background color */
+    color: #333; /* Text color */
+    cursor: pointer;
+    border-radius: 0; /* Remove border radius */
+  }
+  
+  .custom-dropdown::after {
+    content: '\25BC'; /* Unicode for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333; /* Arrow color */
+  }
+  
+  /* Option Button Style */
+  .option-button {
+    padding: 10px 30px; /* Adjust padding as needed */
+    border: none; /* Remove border */
+    background-color: #fff; /* Background color */
+    color: #333; /* Text color */
+    cursor: pointer;
+  }
+  
+  .option-button:hover,
+  .option-button:focus {
+    background-color: #f0f0f0; /* Background color on hover/focus */
+  }
+  
+  .custom-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .custom-dropdown {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .custom-dropdown label {
+    margin-right: 10px;
+    width: 100px; /* Set label width */
+  }
+  
+  .custom-dropdown select {
+    flex: 1;
+    padding: 5px;
+  }
+  
+  .options {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .options label {
+    margin-bottom: 5px;
+  }
+  
+  .options input[type="text"], textarea {
+    margin-bottom: 10px;
+  }
+  
+  .options button {
+    align-self: flex-start;
+    width: auto;
+  }
+  
+  .question-container {
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    text-align: center; /* Center the buttons */
+  }
+  
+  .button-container button {
+    display: inline-block; /* Make buttons display inline */
+    margin: 0 10px; /* Add margin between buttons */
+  }
+  
 
-body{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  .divider {
+    margin: 20px 0;
+    border: 1px solid #ccc;
+  }
 
-  background-size: cover;
-  background-position: center;
-}
-
-*{
-  margin:0;
-  padding: 0;
-  box-sizing: border-box;
-
-}
-
-.option-button,
-.submit-button {
-  width: calc(100% - 20px); /* Adjust width as needed */
-  margin: 10px; /* Add margin for space */
-}
-
-/* Option Style */
-.option {
-  display: inline-block;
-  background-color: #007bff; /* Blue background color */
-  color: #fff; /* White text color */
- 
-  padding: 8px 16px; /* Padding */
-  margin-right: 10px; /* Margin between options */
-  vertical-align: middle; /* Aligns options vertically with adjacent content */
-}
-
-/* Custom Dropdown Style */
-.custom-dropdown {
-  display: inline-block;
-  position: relative;
-}
-
-.custom-dropdown select {
-  appearance: none; /* Remove default arrow */
-  padding: 10px 40px 10px 15px; /* Adjust padding as needed */
-  border: 2px solid #ccc; /* Add border */
-  background-color: #fff; /* Background color */
-  color: #333; /* Text color */
-  cursor: pointer;
-  border-radius: 0; /* Remove border radius */
-}
-
-.custom-dropdown::after {
-  content: '\25BC'; /* Unicode for down arrow */
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: #333; /* Arrow color */
-}
-
-
-/* Option Button Style */
-.option-button {
-  padding: 10px 30px; /* Adjust padding as needed */
-  border: none; /* Remove border */
-  background-color: #fff; /* Background color */
-  color: #333; /* Text color */
-  cursor: pointer;
-}
-
-.option-button:hover,
-.option-button:focus {
-  background-color: #f0f0f0; /* Background color on hover/focus */
-}
-
-
-.custom-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.custom-dropdown {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.custom-dropdown label {
-  margin-right: 10px;
-  width: 100px; /* Set label width */
-}
-
-.custom-dropdown select {
-  flex: 1;
-  padding: 5px;
-}
-
-.options {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.options label {
-  margin-bottom: 5px;
-}
-
-.options input[type="text"], textarea {
-  margin-bottom: 10px;
-}
-
-.options button {
-  align-self: flex-start;
-  width: auto;
-}
-
-.question-container {
-  margin-bottom: 20px;
-}
-
-.divider {
-  margin: 20px 0;
-  border: 1px solid #ccc;
-}
+  .wrapper1 h1{
+    font-size: 36px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .wrapper1 h2 {
+    font-size: 36px;
+    text-align: center; /* Align the text to the left */
+    color: #333;
+    width: 100%; /* Ensure the text takes up the full width */
+    margin-bottom: 30px; /* Adjust spacing as needed */
+  }
+  
+  .wrapper1 input{
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
+  
+  .wrapper1 option{
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
+  
+  .wrapper1.horiz-button {
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
+  
+  .wrapper1.horiz-button button {
+    margin-bottom: 10px; /* Adjust as needed */
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
+  
+  .wrapper1 .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+    margin: 30px 0;
+  }
+  
+  .wrapper1 select {
+    width: 200px; /* Adjust width as needed */
+    display: inline-block;
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+    vertical-align: middle;
+    margin-right: 10px;
+    padding: 8px;
+    font-size: 14px; /* Adjust font size as needed */
+  }
+  
+  .wrapper1 ul {
+    list-style-type: none;
+    padding: 0;
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
+  
+  .wrapper1 ul li {
+    margin-bottom: 10px;
+    pointer-events: auto; /* Re-enable pointer events for the buttons */
+  }
+  
+  .wrapper1 h3 {
+    text-align: center;
+    margin-top: 20px; /* Adjust spacing as needed */
+    margin-bottom: 10px; /* Adjust spacing as needed */
+  }

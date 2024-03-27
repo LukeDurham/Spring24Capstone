@@ -81,17 +81,22 @@ const AssignUserRole = () => {
         setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
     };
 
+    // Define a style object for text color based on mode
+    const textColorStyle = {
+        color: mode === 'dark' ? '#fff' : '#000',
+    };
+
     return (
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
             <div>
                 <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
-                <div className='wrapper'>
-                    <h2>Assign User Role</h2>
+                <div className='wrapper' style={textColorStyle}> {/* Apply text color style */}
+                    <h2 style={textColorStyle}>Assign User Role</h2> {/* Apply text color style to the title */}
                     <form onSubmit={handleSubmit} className="custom-form">
                         <div className='custom-dropdown custom-dropdown-user'>
-                            <label>User Email:</label>
-                            <select value={selectedUserId} onChange={handleUserChange} required>
+                            <label style={textColorStyle}>User Email:</label> {/* Apply text color style */}
+                            <select value={selectedUserId} onChange={handleUserChange} required style={{ color: '#000' }}> {/* Apply black text color */}
                                 <option value="">Select User Email</option>
                                 {users.map((user) => (
                                     <option key={user.id} value={user.id}>{user.email}</option>
@@ -99,15 +104,15 @@ const AssignUserRole = () => {
                             </select>
                         </div>
                         <div className='custom-dropdown custom-dropdown-role'>
-                            <label>Role:</label>
-                            <select value={selectedRole} onChange={handleRoleChange} required>
+                            <label style={textColorStyle}>Role:</label> {/* Apply text color style */}
+                            <select value={selectedRole} onChange={handleRoleChange} required style={{ color: '#000' }}> {/* Apply black text color */}
                                 <option value="">Select Role</option>
                                 {roles.map((role) => (
                                     <option key={role.id} value={role.id}>{role.name}</option>
                                 ))}
                             </select>
                         </div>
-                        <button type="submit">Assign Role</button>
+                        <button type="submit" style={{ color: '#000' }}>Assign Role</button> {/* Always black text */}
                     </form>
                 </div>
             </div>

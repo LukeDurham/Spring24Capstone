@@ -82,8 +82,10 @@ const AccountPermissions = () => {
                 <AdminAppBar mode={mode} toggleColorMode={toggleColorMode} />
                 <div className='wrapper'>
                     <h2>{action === 'edit' ? 'Edit Role' : 'Create Account Permissions'}</h2>
+                    <div className='horiz-button'>
                     <button onClick={() => setAction('edit')}>Edit Role</button>
                     <button onClick={() => setAction('create')}>Create Role</button>
+                    </div>
                     <form onSubmit={handleSubmit} className="custom-form">
                         {action === 'edit' && (
                              <>

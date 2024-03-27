@@ -40,6 +40,10 @@ const SurveyTypes = () => {
         setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
     };
 
+    const textColorStyle = {
+        color: mode === 'dark' ? '#fff' : '#000',
+    };
+
     return (
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
@@ -55,7 +59,7 @@ const SurveyTypes = () => {
                     </select>
                     <button onClick={handleFilterQuestions}>Filter Questions</button>
                     <div>
-                        <h3>Filtered Questions</h3>
+                        <h3 style={textColorStyle}>Filtered Questions</h3>
                         <ul>
                             {filteredQuestions.map((question) => (
                                 <li key={question.id}>

@@ -38,7 +38,7 @@ const LoginPage = () => {
         } else if (data.role === 'Surveyor') {
           navigate('/surveyor/dashboard'); // Use the path to your SurveyorDashboard component
         } else {
-          navigate('/dashboard'); // Default path for other users
+          navigate('/respondentDash'); // Default path for other users
         }
       } else {
         console.error('Login failed');
@@ -50,7 +50,7 @@ const LoginPage = () => {
 
 
   return (
-    <div className="wrapper">
+    <div className="wrapper1">
       <form onSubmit={handleLogin}>
         <h1>Login</h1>
         <div className="input-box">

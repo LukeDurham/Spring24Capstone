@@ -110,18 +110,23 @@ const CreateSurvey = () => {
         setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
     };
 
+    const textColorStyle = {
+        color: mode === 'dark' ? '#fff' : '#000',
+    };
+
+
     return (
         <ThemeProvider theme={LPtheme}>
             <CssBaseline />
             <div>
                 <SurvAppBar mode={mode} toggleColorMode={toggleColorMode} /> {/* Include the AppAppBar component */}
-                <div className='wrapper'>
+                <div className='wrapper' style={textColorStyle}>
                     <h2>Create Survey</h2>
                     <form onSubmit={handleSubmit}>
                         {questions.map((question, index) => (
                             <div key={index} className="question-container">
                                 <div>
-                                    <label>Question Type:</label>
+                                    <label style={textColorStyle}>Question Type:</label>
                                     <select value={question.questionType} onChange={(e) => handleQuestionTypeChange(index, e.target.value)}>
                                         {questionTypes.map((type) => (
                                             <option key={type.id} value={type.name}>{type.name}</option>
